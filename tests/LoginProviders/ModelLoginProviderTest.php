@@ -82,12 +82,12 @@ class ModelLoginProviderTest extends \Rhubarb\Crown\Tests\RhubarbTestCase
 		{
 		}
 
-		$this->assertFalse( $testLoginProvider->IsLoggedIn() );
+		$this->assertFalse( $testLoginProvider->isLoggedIn() );
 
 		$result = $testLoginProvider->login( "mdoe", "abc123" );
 
 		$this->assertTrue( $result );
-		$this->assertTrue( $testLoginProvider->IsLoggedIn() );
+		$this->assertTrue( $testLoginProvider->isLoggedIn() );
 
 		$model = $testLoginProvider->getModel();
 
@@ -96,9 +96,9 @@ class ModelLoginProviderTest extends \Rhubarb\Crown\Tests\RhubarbTestCase
 
 		$this->assertNotNull( $testLoginProvider->LoggedInUserIdentifier );
 
-		$testLoginProvider->LogOut();
+		$testLoginProvider->logOut();
 
-		$this->assertFalse( $testLoginProvider->IsLoggedIn() );
+		$this->assertFalse( $testLoginProvider->isLoggedIn() );
 		$this->assertNull( $testLoginProvider->LoggedInUserIdentifier );
 
 		$this->setExpectedException( "Rhubarb\Crown\LoginProviders\Exceptions\NotLoggedInException" );
@@ -115,7 +115,7 @@ class ModelLoginProviderTest extends \Rhubarb\Crown\Tests\RhubarbTestCase
         $testLoginProvider = new TestLoginProvider();
         $testLoginProvider->forceLogin( $user );
 
-        $this->assertTrue( $testLoginProvider->IsLoggedIn() );
+        $this->assertTrue( $testLoginProvider->isLoggedIn() );
         $this->assertEquals( $user->UniqueIdentifier, $testLoginProvider->getModel()->UniqueIdentifier );
     }
 }

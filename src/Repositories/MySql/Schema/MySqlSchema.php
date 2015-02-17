@@ -59,7 +59,7 @@ class MySqlSchema extends ModelSchema
         try {
             $repos = Repository::getDefaultRepositoryClassName();
 
-            if (ltrim($repos, '\\') != 'Rhubarb\Stem\Repositories\MySql\MySql') {
+            if ( stripos( $repos, 'MySql') === false ) {
                 // If our repos has been switched to something that isn't MySql (e.g. Offline if unit testing)
                 // we need to exit.
 
