@@ -4,8 +4,8 @@
 
 namespace Rhubarb\Stem\Models\Validation;
 
-use Gcd\Core\Modelling\UnitTesting\User;
-use Gcd\Core\UnitTesting\CoreTestCase;
+use Gcd\Core\Modelling\Fixtures\User;
+use Gcd\Core\Fixtures\CoreTestCase;
 
 class ValidatorTest extends CoreTestCase
 {
