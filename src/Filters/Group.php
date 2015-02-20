@@ -49,6 +49,11 @@ class Group extends Filter
 	{
 		$this->booleanType = $booleanType;
 
+		if ( !is_array( $filters ) )
+		{
+			throw new \InvalidArgumentException( "The filters argument of a Group filter must be an array of Filter objects" );
+		}
+
 		$this->filters = $filters;
 	}
 
