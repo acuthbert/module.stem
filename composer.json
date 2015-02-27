@@ -10,6 +10,9 @@
       "Rhubarb\\Stem\\Tests\\": "tests/"
     }
   },
+  "require": {
+    "rhubarbphp/rhubarb": "*"
+  },
   "require-dev": {
     "phpunit/phpunit": "3.*"
   }
