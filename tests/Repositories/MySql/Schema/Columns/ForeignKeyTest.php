@@ -2,14 +2,14 @@
 
 namespace Rhubarb\Stem\Tests\Repositories\MySql\Schema\Columns;
 
-use Rhubarb\Stem\Repositories\MySql\Schema\MySqlSchema;
+use Rhubarb\Stem\Repositories\MySql\Schema\MySqlModelSchema;
 use Rhubarb\Crown\Tests\RhubarbTestCase;
 
 class ForeignKeyTest extends RhubarbTestCase
 {
 	public function testColumnSetsIndex()
 	{
-		$schema = new MySqlSchema( "tblTest" );
+		$schema = new MySqlModelSchema( "tblTest" );
 		$schema->addColumn(
 			new ForeignKey( "CompanyID" )
 		);

@@ -18,16 +18,16 @@ use Rhubarb\Stem\Models\Validation\HasValue;
 use Rhubarb\Stem\Models\Validation\Validator;
 use Rhubarb\Stem\Models\Model;
 use Rhubarb\Stem\Repositories\MySql\Schema\Columns\AutoIncrement;
-use Rhubarb\Stem\Repositories\MySql\Schema\Columns\Date;
-use Rhubarb\Stem\Repositories\MySql\Schema\Columns\DateTime;
-use Rhubarb\Stem\Repositories\MySql\Schema\Columns\Int;
-use Rhubarb\Stem\Repositories\MySql\Schema\Columns\JsonText;
-use Rhubarb\Stem\Repositories\MySql\Schema\Columns\Money;
-use Rhubarb\Stem\Repositories\MySql\Schema\Columns\Time;
-use Rhubarb\Stem\Repositories\MySql\Schema\Columns\TinyInt;
-use Rhubarb\Stem\Repositories\MySql\Schema\Columns\Varchar;
+use Rhubarb\Stem\Repositories\MySql\Schema\Columns\MySqlDate;
+use Rhubarb\Stem\Repositories\MySql\Schema\Columns\MySqlDateTime;
+use Rhubarb\Stem\Repositories\MySql\Schema\Columns\MySqlInteger;
+use Rhubarb\Stem\Repositories\MySql\Schema\Columns\Json;
+use Rhubarb\Stem\Repositories\MySql\Schema\Columns\MySqlMoney;
+use Rhubarb\Stem\Repositories\MySql\Schema\Columns\MySqlTime;
+use Rhubarb\Stem\Repositories\MySql\Schema\Columns\TinyMySqlInt;
+use Rhubarb\Stem\Repositories\MySql\Schema\Columns\MySqlString;
 use Rhubarb\Stem\Repositories\MySql\Schema\Index;
-use Rhubarb\Stem\Repositories\MySql\Schema\MySqlSchema;
+use Rhubarb\Stem\Repositories\MySql\Schema\MySqlModelSchema;
 
 class Company extends Model
 {
@@ -39,22 +39,22 @@ class Company extends Model
 	 */
 	protected function createSchema()
 	{
-		$schema = new MySqlSchema( "tblCompany" );
+		$schema = new MySqlModelSchema( "tblCompany" );
 		$schema->uniqueIdentifierColumnName = "CompanyID";
 
 		$companyId = new AutoIncrement( "CompanyID" );
 
 		$schema->addColumn( $companyId );
-		$schema->addColumn( new Varchar( "CompanyName", 200 ) );
-		$schema->addColumn( new Money( "Balance" ) );
-		$schema->addColumn( new Date( "InceptionDate" ) );
-		$schema->addColumn( new DateTime( "LastUpdatedDate" ) );
-		$schema->addColumn( new Time( "KnockOffTime" ) );
-		$schema->addColumn( new TinyInt( "BlueChip", 0 ) );
-		$schema->addColumn( new Int( "ProjectCount" ) );
+		$schema->addColumn( new MySqlString( "CompanyName", 200 ) );
+		$schema->addColumn( new MySqlMoney( "Balance" ) );
+		$schema->addColumn( new MySqlDate( "InceptionDate" ) );
+		$schema->addColumn( new MySqlDateTime( "LastUpdatedDate" ) );
+		$schema->addColumn( new MySqlTime( "KnockOffTime" ) );
+		$schema->addColumn( new TinyMySqlInt( "BlueChip", 0 ) );
+		$schema->addColumn( new MySqlInteger( "ProjectCount" ) );
 		$schema->addIndex( new Index( "CompanyID", Index::PRIMARY ) );
-		$schema->addColumn( new JsonText( "CompanyData" ) );
-		$schema->addColumn( new TinyInt( "Active", 1 ) );
+		$schema->addColumn( new Json( "CompanyData" ) );
+		$schema->addColumn( new TinyMySqlInt( "Active", 1 ) );
 
 		$schema->labelColumnName = "CompanyName";
 

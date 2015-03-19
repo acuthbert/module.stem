@@ -4,8 +4,8 @@ namespace Rhubarb\Stem\Tests\Fixtures;
 
 use Rhubarb\Stem\Models\Model;
 use Rhubarb\Stem\Repositories\MySql\Schema\Columns\AutoIncrement;
-use Rhubarb\Stem\Repositories\MySql\Schema\Columns\Int;
-use Rhubarb\Stem\Repositories\MySql\Schema\MySqlSchema;
+use Rhubarb\Stem\Repositories\MySql\Schema\Columns\MySqlInteger;
+use Rhubarb\Stem\Repositories\MySql\Schema\MySqlModelSchema;
 use Rhubarb\Stem\Schema\Columns\Integer;
 use Rhubarb\Stem\Schema\ModelSchema;
 
@@ -26,11 +26,11 @@ class CompanyCategory extends Model
 	 */
 	protected function createSchema()
 	{
-		$schema = new MySqlSchema( "tblCompanyCategory" );
+		$schema = new MySqlModelSchema( "tblCompanyCategory" );
 		$schema->addColumn(
 			new AutoIncrement( "CompanyCategoryID" ),
-			new Int( "CompanyID" ),
-			new Int( "CategoryID" )
+			new MySqlInteger( "CompanyID" ),
+			new MySqlInteger( "CategoryID" )
 		);
 
 		$schema->uniqueIdentifierColumnName = "CompanyCategoryID";

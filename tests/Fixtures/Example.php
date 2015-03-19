@@ -3,10 +3,10 @@
 namespace Rhubarb\Stem\Tests\Fixtures;
 
 use Rhubarb\Stem\Models\Model;
-use Rhubarb\Stem\Repositories\MySql\Schema\Columns\Date;
-use Rhubarb\Stem\Repositories\MySql\Schema\Columns\DateTime;
-use Rhubarb\Stem\Repositories\MySql\Schema\Columns\Int;
-use Rhubarb\Stem\Repositories\MySql\Schema\Columns\Varchar;
+use Rhubarb\Stem\Repositories\MySql\Schema\Columns\MySqlDate;
+use Rhubarb\Stem\Repositories\MySql\Schema\Columns\MySqlDateTime;
+use Rhubarb\Stem\Repositories\MySql\Schema\Columns\MySqlInteger;
+use Rhubarb\Stem\Repositories\MySql\Schema\Columns\MySqlString;
 use Rhubarb\Stem\Schema\Columns\Boolean;
 use Rhubarb\Stem\Schema\Columns\Time;
 use Rhubarb\Stem\Schema\ModelSchema;
@@ -30,12 +30,12 @@ class Example extends Model
 	protected function createSchema()
 	{
 		$schema = new ModelSchema( "tblContact" );
-		$schema->addColumn( new Int( "ContactID", 0 ) );
-		$schema->addColumn( new Int( "CompanyID", 0 ) );
-		$schema->addColumn( new Date( "DateOfBirth" ) );
-		$schema->addColumn( new DateTime( "CreatedDate" ) );
-		$schema->addColumn( new Varchar( "Forename", 100 ) );
-		$schema->addColumn( new Varchar( "Surname", 100 ) );
+		$schema->addColumn( new MySqlInteger( "ContactID", 0 ) );
+		$schema->addColumn( new MySqlInteger( "CompanyID", 0 ) );
+		$schema->addColumn( new MySqlDate( "DateOfBirth" ) );
+		$schema->addColumn( new MySqlDateTime( "CreatedDate" ) );
+		$schema->addColumn( new MySqlString( "Forename", 100 ) );
+		$schema->addColumn( new MySqlString( "Surname", 100 ) );
 		$schema->addColumn( new Boolean( "KeyContact" ) );
 		$schema->addColumn( new Time( "CoffeeTime" ) );
 

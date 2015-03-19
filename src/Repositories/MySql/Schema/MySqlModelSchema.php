@@ -21,7 +21,6 @@ namespace Rhubarb\Stem\Repositories\MySql\Schema;
 require_once __DIR__ . "/../../../Schema/ModelSchema.php";
 
 use Rhubarb\Stem\Exceptions\RepositoryStatementException;
-use Rhubarb\Stem\Repositories\MySql\Schema\Columns\AutoIncrement;
 use Rhubarb\Stem\Repositories\Repository;
 use Rhubarb\Stem\Schema\Columns\Column;
 use Rhubarb\Stem\Schema\ModelSchema;
@@ -29,7 +28,7 @@ use Rhubarb\Stem\Schema\ModelSchema;
 /**
  * An implementation of Schema for MySQL databases.
  */
-class MySqlSchema extends ModelSchema
+class MySqlModelSchema extends ModelSchema
 {
     /**
      * A collection of Index objects
@@ -93,14 +92,13 @@ class MySqlSchema extends ModelSchema
         call_user_func_array("parent::addColumn", $columns);
 
         foreach ($columns as $column) {
-            $index = $column->getIndex();
 
-            if ($index !== false) {
-                $this->addIndex($index);
-            }
+            if (method_exists($column, "getIndex")) {
+                $index = $column->getIndex();
 
-            if ($column instanceof AutoIncrement) {
-                $this->uniqueIdentifierColumnName = $column->columnName;
+                if ($index !== false) {
+                    $this->addIndex($index);
+                }
             }
         }
     }
@@ -128,5 +126,20 @@ class MySqlSchema extends ModelSchema
 
         $repos = Repository::getDefaultRepositoryClassName();
         $repos::executeStatement($sql);
+    }
+
+    public static function fromGenericSchema(ModelSchema $genericSchema, Repository $repository)
+    {
+        $schema = new MySqlModelSchema($genericSchema->schemaName);
+
+        $columns = $genericSchema->columns;
+
+        $specificColumns = $genericSchema->getColumnsAsRepositorySpecificTypes($repository);
+
+        call_user_func_array([$schema, "addColumn"], $specificColumns);
+
+        $schema->uniqueIdentifierColumnName = $genericSchema->uniqueIdentifierColumnName;
+
+        return $schema;
     }
 }
